@@ -3,9 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ToDo Things</title>
+    <title>Do the Things</title>
 </head>
 <body>
-    
+    <div class="wrapper">
+        <header>
+            <h1>Do the Things</h1>
+            <div class="nav">
+            </div>
+        </header>
+        <div class="tasks-wrapper">
+            <div class="tasks-ops">
+                <button id="create">Create Task</button>
+                <button id="filterProject">Projects</button>
+                <div class="projectdropdown"></div>
+            </div>
+            <div id="tasks"></div>
+        </div>
+        <footer>By Sarah Good, 2025</footer>
+        <div class='modal' id="modal-create">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <form>
+                    <label for="c-title">Task Name:</label>
+                    <input type="text" name="title" id="c-title">
+                    <label for="c-detail">Details:</label>
+                    <input type="text" name="detail" id="c-detail">
+                    <label for="c-dateDue">Due Date:</label>
+                    <input type="date" id="c-dateDue">
+                    <label for="c-priority">Priority:</label>
+                    <select name="priority" id="c-priority">
+                        <option value="1">Undefined</option>
+                        <option value="2">High</option>
+                        <option value="3">Medium</option>
+                        <option value="4">Low</option>
+                    </select>
+                    <label for="c-project">Project</label>
+                    <select name="projects" id="c-project">
+                        <option value="Inbox">Inbox</option>
+                    </select>
+                </form>
+                <button id="submitCreate">Submit</button>
+            </div>
+        </div>
+        <div class='modal' id="modal-edit">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <form action="get">
+                    <label for="e-title">Task Name:</label>
+                    <input type="text" name="title" id="e-title">
+                    <label for="e-detail">Details:</label>
+                    <input type="text" name="detail" id="e-detail">
+                    <label for="e-dateDue">Due Date:</label>
+                    <input type="date" id="e-dateDue">
+                    <label for="e-priority">Priority:</label>
+                    <select name="priority" id="e-priority">
+                        <option value="1">Undefined</option>
+                        <option value="2">High</option>
+                        <option value="3">Medium</option>
+                        <option value="4">Low</option>
+                    </select>
+                    <label for="e-project">Project</label>
+                    <select name="projects" id="e-project">
+                        <!-- Projects dynamically generated -->
+                    </select>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
