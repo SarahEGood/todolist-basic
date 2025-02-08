@@ -1,5 +1,9 @@
 import "./styles.css";
 
+// Load existing tasks
+let myTasks = [];
+reloadTasks();
+
 var createModal = document.getElementById('modal-create');
 var createbtn = document.getElementById("create");
 var span = document.getElementsByClassName("close")[0];
@@ -51,8 +55,6 @@ class Task {
 
 }
 
-let myTasks = [];
-
 // Task CRUD functionality
 function createTask() {
     // Get task info from a form in a create task modal
@@ -73,7 +75,7 @@ function createTask() {
 
     // Then, append to data and save
     myTasks.push(newTask);
-    localStorage.setItem('tasks', myTasks);
+    localStorage.setItem('tasks', JSON.stringify(myTasks));
 
     // Then, reload tasks
     reloadTasks();
@@ -102,6 +104,8 @@ function reloadTasks() {
     const taskList = document.getElementById('tasks');
     taskList.innerHTML = '';
 
+    myTasks = JSON.parse(localStorage.getItem('tasks'));
+
     // If no json for tasks, create one
     // else, load the existing json
     for (let i=0; i<myTasks.length; i++) {
@@ -109,6 +113,7 @@ function reloadTasks() {
         const newRow = document.createElement('div');
         newRow.innerHTML = taskInfo.title + ' ' + taskInfo.detail;
         taskList.appendChild(newRow);
+        // Note: display other info too
     }
 
     // iterate through json of tasks to display them on modal
