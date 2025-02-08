@@ -111,9 +111,19 @@ function reloadTasks() {
     for (let i=0; i<myTasks.length; i++) {
         let taskInfo = myTasks[i];
         const newRow = document.createElement('div');
-        newRow.innerHTML = taskInfo.title + ' ' + taskInfo.detail;
+        newRow.setAttribute('class', 'task');
+        const newtitle = document.createElement('p');
+        newtitle.innerHTML = taskInfo.title;
+        const newdetail = document.createElement('p');
+        newdetail.innerHTML = taskInfo.detail;
+        const nDueDate = document.createElement('p');
+        nDueDate.innerHTML = taskInfo.dateDue;
+
+        // Write info to div
+        newRow.appendChild(newtitle);
+        newRow.appendChild(newdetail);
+        newRow.appendChild(nDueDate);
         taskList.appendChild(newRow);
-        // Note: display other info too
     }
 
     // iterate through json of tasks to display them on modal

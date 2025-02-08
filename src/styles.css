@@ -25,6 +25,21 @@
     width: 80%; /* Could be more or less, depending on screen size */
 }
 
+.tasks-wrapper {
+    padding: 10px;
+    background: lightblue;
+}
+
+.task {
+    padding: 10px;
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+
+.task_a {
+    background-color: grey;
+}
+
 .close {
     color: #aaa;
     float: right;
