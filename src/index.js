@@ -1,4 +1,7 @@
 import "./styles.css";
+import editImage from "./pencil.svg";
+
+document.querySelector('footer').innerHTML += new Date().getFullYear();
 
 // Load existing tasks
 let myTasks = [];
@@ -102,7 +105,14 @@ function deleteTask() {
 function reloadTasks() {
     // Clear task list div
     const taskList = document.getElementById('tasks');
-    taskList.innerHTML = '';
+    taskList.innerHTML = `
+        <div class="task">
+            <div class="tasklabels">Task</div>
+            <div class="tasklabels">Description</div>
+            <div class="tasklabels">Due Date</div>
+            <div class="tasklabels">Status</div>
+            <div class="tasklabels">Edit</div>
+        </div>`;
 
     myTasks = JSON.parse(localStorage.getItem('tasks'));
 
@@ -118,11 +128,20 @@ function reloadTasks() {
         newdetail.innerHTML = taskInfo.detail;
         const nDueDate = document.createElement('p');
         nDueDate.innerHTML = taskInfo.dateDue;
+        const nStatusButton = document.createElement('input');
+        nStatusButton.setAttribute('type', 'checkbox');
+        const neditButton = document.createElement('div');
+        neditButton.setAttribute('class', 'editbtn');
+        const nimage = document.createElement('img');
+        nimage.src = editImage;
+        neditButton.appendChild(nimage);
 
         // Write info to div
         newRow.appendChild(newtitle);
         newRow.appendChild(newdetail);
         newRow.appendChild(nDueDate);
+        newRow.appendChild(nStatusButton);
+        newRow.appendChild(neditButton);
         taskList.appendChild(newRow);
     }
 

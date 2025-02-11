@@ -1,6 +1,13 @@
 * {
     margin: 0;
     padding: 0;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.wrapper {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 
 .modal {
@@ -30,10 +37,16 @@
     background: lightblue;
 }
 
-.task {
+.task{
     padding: 10px;
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: 1fr 1fr 1fr 0.5fr 0.5fr;
+    width: clamp(500px, auto, 800px);
+}
+
+.task p {
+    margin-right: 10px;
+    margin-left: 10px;
 }
 
 .task_a {
@@ -52,4 +65,26 @@
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+.wrapper button {
+    background-color: #4562c0;
+    border: none;
+    color: white;
+    padding: 16px;
+    font-size: 18px;
+}
+
+.editbtn img {
+    width: 24px;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid darkblue;
+}
+
+.tasklabels {
+    font-size: 24px;
+    margin-right: 10px;
+    margin-left: 10px;
+    padding-right: 5px;
 }
