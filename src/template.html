@@ -48,8 +48,8 @@
         </div>
         <div class='modal' id="modal-edit">
             <div class="modal-content">
-                <span class="close">&times;</span>
-                <form action="get">
+                <span class="close" id="close_edit">&times;</span>
+                <form>
                     <label for="e-title">Task Name:</label>
                     <input type="text" name="title" id="e-title">
                     <label for="e-detail">Details:</label>
@@ -68,6 +68,8 @@
                         <!-- Projects dynamically generated -->
                     </select>
                 </form>
+                <button id="submitEdit">Submit</button>
+                <button id="deleteBtn">Delete</button>
             </div>
         </div>
     </div>

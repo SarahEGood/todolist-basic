@@ -12,6 +12,10 @@ var createbtn = document.getElementById("create");
 var span = document.getElementsByClassName("close")[0];
 var submitcreate = document.getElementById('submitCreate');
 
+var editModal = document.getElementById('modal-edit');
+var submitedit = document.getElementById('submitEdit');
+var editClose = document.getElementById("close_edit");
+
 document.getElementById('c-dateDue').value = new Date().toISOString().split('T')[0];;
 
 createbtn.onclick = function() {
@@ -23,8 +27,17 @@ submitcreate.onclick = function() {
     createModal.style.display = 'none';
 }
 
+submitedit.onclick = function() {
+    //Add logic for overwriting task
+    editModal.style.display = 'none';
+}
+
 span.onclick = function() {
     createModal.style.display = 'none';
+}
+
+editClose.onclick = function() {
+    editModal.style.display = 'none';
 }
 
 // Task Objects
@@ -135,6 +148,11 @@ function reloadTasks() {
         const nimage = document.createElement('img');
         nimage.src = editImage;
         neditButton.appendChild(nimage);
+
+        // Add logic to pop out edit modal
+        neditButton.onclick = function () {
+            editModal.style.display = 'block';
+        }
 
         // Write info to div
         newRow.appendChild(newtitle);
