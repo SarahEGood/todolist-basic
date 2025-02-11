@@ -32,6 +32,7 @@ submitcreate.onclick = function() {
 
 submitedit.onclick = function() {
     //Add logic for overwriting task
+    editTask();
     editModal.style.display = 'none';
 }
 
@@ -111,11 +112,26 @@ function createTask() {
 }
 
 function editTask() {
-    // Same as above, but from an edit modal
+    const title = document.getElementById('e-title').value;
+    const detail = document.getElementById('e-detail').value;
+    const duedate = document.getElementById('e-dateDue').value;
+    const priority = document.getElementById('e-priority').value;
+    let project = document.getElementById('e-project').value;
+    if (project == null) {
+        project = 'Inbox';
+    }
 
-    // overwrite task by task id
+    let newTask = new Task(title, detail, duedate, priority, project,
+        0, 0
+    );
 
-    //reload page
+    // Then, append to data and save
+    myTasks[activeTask] = newTask;
+    localStorage.setItem('tasks', JSON.stringify(myTasks));
+
+    // Then, reload tasks
+    reloadTasks();
+
 }
 
 // Delete Task
