@@ -5,6 +5,7 @@ document.querySelector('footer').innerHTML += new Date().getFullYear();
 
 // Load existing tasks
 let myTasks = [];
+let activeTask = 0;
 reloadTasks();
 
 var createModal = document.getElementById('modal-create');
@@ -15,11 +16,13 @@ var submitcreate = document.getElementById('submitCreate');
 var editModal = document.getElementById('modal-edit');
 var submitedit = document.getElementById('submitEdit');
 var editClose = document.getElementById("close_edit");
+var deleteBtn = document.getElementById('deleteBtn');
 
 document.getElementById('c-dateDue').value = new Date().toISOString().split('T')[0];;
 
 createbtn.onclick = function() {
     createModal.style.display = 'block';
+    document.getElementById('createForm').reset();
 }
 
 submitcreate.onclick = function() {
@@ -40,6 +43,12 @@ editClose.onclick = function() {
     editModal.style.display = 'none';
 }
 
+deleteBtn.onclick = function() {
+    deleteTask(activeTask);
+    editModal.style.display = 'none';
+    reloadTasks();
+}
+
 // Task Objects
 class Task {
     constructor(title, detail, dateDue, priority, project, parent, children) {
@@ -52,6 +61,7 @@ class Task {
         this.children = children;
         this.createdDate = new Date();
         this.modDate = new Date();
+        this.complete = false;
     }
 
     get getJson() {
@@ -108,10 +118,13 @@ function editTask() {
     //reload page
 }
 
-function deleteTask() {
-    // Trigger on delete button on task list or edit modal
-    // optional: ask user if ok to delete
-    // Delete from data and reload list
+// Delete Task
+function deleteTask(ind) {
+    console.log(myTasks.length);
+    let t = myTasks[ind];
+    myTasks = myTasks.filter(item => item !== t)
+    console.log(myTasks.length);
+    localStorage.setItem('tasks', JSON.stringify(myTasks));
 }
 
 // Display tasks
@@ -152,6 +165,8 @@ function reloadTasks() {
         // Add logic to pop out edit modal
         neditButton.onclick = function () {
             editModal.style.display = 'block';
+            populateEdit(i);
+            console.log(activeTask);
         }
 
         // Write info to div
@@ -164,4 +179,17 @@ function reloadTasks() {
     }
 
     // iterate through json of tasks to display them on modal
+}
+
+// Populate Edit fields with corresponding task
+function populateEdit(ind) {
+    const task = myTasks[ind];
+    
+    document.getElementById('e-title').value = task.title;
+    document.getElementById('e-detail').value = task.detail;
+    document.getElementById('e-dateDue').value = task.dateDue;
+    document.getElementById('e-priority').value = task.priority;
+    document.getElementById('e-project').value = task.project;
+
+    activeTask = ind;
 }
