@@ -293,7 +293,10 @@ function reloadProjects() {
                     editProject(p_name, p_field);
                 }
             }
+        }
 
+        deletep.onclick = function () {
+            deleteProject(i);
         }
 
         p.appendChild(p_name);
@@ -350,6 +353,13 @@ function editProject(p_name, p_field) {
         const i = myProjects.indexOf(p_name.innerHTML);
         myProjects[i] = p_field.value;
     }
+    reloadProjectList();
+    reloadProjects();
+}
+
+function deleteProject(ind) {
+    let t = myProjects[ind];
+    myProjects = myProjects.filter(item => item !== t)
     reloadProjectList();
     reloadProjects();
 }
