@@ -469,16 +469,24 @@ function editStatus(nStatusButton, ind) {
 // Reloads projects in filter list
 function reloadProjectList() {
     const dropdown = document.getElementById('filterProject');
+    const cDropdown = document.getElementById('c-project');
+    const eDropdown = document.getElementById('e-project');
     dropdown.innerHTML = '';
     for (let i=0; i<myProjects.length; i++) {
         const p = document.createElement('option');
+        const q = document.createElement('option');
         p.innerHTML = myProjects[i];
+        q.innerHTML = myProjects[i];
 
         p.addEventListener('click', function() {
             reloadTasks(myProjects[i]);
         })
 
         dropdown.appendChild(p);
+        if (myProjects[i] !== 'All') {
+            cDropdown.appendChild(q);
+            eDropdown.appendChild(q);
+        }
     }
 }
 
