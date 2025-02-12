@@ -504,8 +504,10 @@ function reloadProjectList() {
     for (let i=0; i<myProjects.length; i++) {
         const p = document.createElement('option');
         const q = document.createElement('option');
+        const r = document.createElement('option');
         p.innerHTML = myProjects[i];
         q.innerHTML = myProjects[i];
+        r.innerHTML = myProjects[i];
 
         p.addEventListener('click', function() {
             reloadTasks(myProjects[i]);
@@ -514,7 +516,7 @@ function reloadProjectList() {
         dropdown.appendChild(p);
         if (myProjects[i] !== 'All') {
             cDropdown.appendChild(q);
-            eDropdown.appendChild(q);
+            eDropdown.appendChild(r);
         }
     }
 }
