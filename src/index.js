@@ -226,6 +226,7 @@ function reloadTasks(project='All') {
     myTasks = newTasks;
 
     if (project!=='All') {
+        let newTasks = [];
         for (let i = 0; i<myTasks.length; i++) {
             let t = myTasks[i].project;
             if (t === project) {
