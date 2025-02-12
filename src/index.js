@@ -346,8 +346,10 @@ function createProject() {
 }
 
 function editProject(p_name, p_field) {
-    const i = myProjects.indexOf(p_name.innerHTML);
-    myProjects[i] = p_field.value;
+    if (p_field.value.length > 0) {
+        const i = myProjects.indexOf(p_name.innerHTML);
+        myProjects[i] = p_field.value;
+    }
     reloadProjectList();
     reloadProjects();
 }
