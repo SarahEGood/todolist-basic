@@ -35,13 +35,13 @@
 .tasks-wrapper {
     padding: 10px;
     background: lightblue;
+    width: clamp(500px, auto, 800px);
 }
 
 .task{
     padding: 10px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 0.5fr 0.5fr;
-    width: clamp(500px, auto, 800px);
 }
 
 .task p {
@@ -99,4 +99,16 @@ select {
 
 .top-labels {
     font-size: 20px;
+}
+
+#projectList {
+    display:none;
+    width: clamp(500px, auto, 800px);
+}
+
+.project {
+    display:grid;
+    grid-template-columns: 1fr 0.5fr 0.5fr;
+    padding: 10px;
+    width: clamp(500px, auto, 800px);
 }

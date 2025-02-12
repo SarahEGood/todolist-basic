@@ -1,5 +1,6 @@
 import "./styles.css";
 import editImage from "./pencil.svg";
+import delImage from "./delete.svg";
 
 document.querySelector('footer').innerHTML += new Date().getFullYear();
 
@@ -10,6 +11,7 @@ reloadTasks();
 
 // Load Projects
 let myProjects = ['All', 'Inbox'];
+reloadProjects();
 reloadProjectList();
 
 var createModal = document.getElementById('modal-create');
@@ -233,6 +235,42 @@ function populateEdit(ind) {
     activeTask = ind;
 }
 
+function reloadProjects() {
+    const projectList = document.getElementById('projectList');
+
+    projectList.innerHTML = `
+        <div class="project">
+            <div class="tasklabels">Project</div>
+            <div class="tasklabels">Edit</div>
+            <div class="tasklabels">Delete</div>
+        </div>`;
+
+
+    for (let i = 0; i<myProjects.length; i++) {
+        const p = document.createElement('div');
+        p.setAttribute('class', 'project');
+        const p_name = document.createElement('p');
+        p_name.innerHTML = myProjects[i];
+        const editp = document.createElement('div');
+        editp.setAttribute('class', 'editbtn');
+        const nimage = document.createElement('img');
+        nimage.src = editImage;
+        editp.appendChild(nimage);
+
+        const deletep = document.createElement('div');
+        deletep.setAttribute('class', 'editbtn');
+        const pimage = document.createElement('img');
+        pimage.src = delImage;
+        deletep.appendChild(pimage);
+
+        p.appendChild(p_name);
+        p.appendChild(editp);
+        p.appendChild(deletep);
+
+        projectList.appendChild(p);
+    }
+}
+
 // Reloads projects in filter list
 function reloadProjectList() {
     const dropdown = document.getElementById('filterProject');
@@ -256,7 +294,7 @@ function taskToProject() {
     const t = document.getElementById('tasks');
     const p = document.getElementById('projectList');
     t.style.display = 'none';
-    p.style.display = 'block';
+    p.style.display = 'grid';
 }
 
 function projectToTask() {
