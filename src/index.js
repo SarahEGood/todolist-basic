@@ -127,7 +127,7 @@ function createTask() {
     const detail = document.getElementById('c-detail').value;
     const duedate = document.getElementById('c-dateDue').value;
     const priority = document.getElementById('c-priority').value;
-    let project = document.getElementById('c-project').value;
+    const project = document.getElementById('c-project').value;
     if (project == null) {
         project = 'Inbox';
     }
@@ -185,6 +185,7 @@ function reloadTasks(project='All') {
             <div class="tasklabels">Task</div>
             <div class="tasklabels">Description</div>
             <div class="tasklabels">Due Date</div>
+            <div class="tasklabels">Priority</div>
             <div class="tasklabels">Status</div>
             <div class="tasklabels">Edit</div>
         </div>`;
@@ -255,6 +256,27 @@ function reloadTasks(project='All') {
         } else {
             nDueDate.innerHTML = "None";
         }
+
+        const newpriority = document.createElement('select');
+        const up = document.createElement('option');
+        const hp = document.createElement('option');
+        const mp = document.createElement('option');
+        const lp = document.createElement('option');
+        up.setAttribute('value', '1');
+        hp.setAttribute('value', '2');
+        mp.setAttribute('value', '3');
+        lp.setAttribute('value', '4');
+        up.innerHTML = 'Undefined';
+        hp.innerHTML = 'High';
+        mp.innerHTML = 'Medium';
+        lp.innerHTML = 'Low';
+        newpriority.appendChild(up);
+        newpriority.appendChild(hp);
+        newpriority.appendChild(mp);
+        newpriority.appendChild(lp);
+        
+        newpriority.value = myTasks[i].priority;
+
         const nStatusButton = document.createElement('input');
         nStatusButton.setAttribute('type', 'checkbox');
         if (taskInfo.complete === true) {
@@ -290,10 +312,17 @@ function reloadTasks(project='All') {
             editStatus(nStatusButton, i);
         }
 
+        newpriority.onclick = function() {
+            myTasks[i].priority = newpriority.value;
+            localStorage.setItem('tasks', JSON.stringify(myTasks));
+            reloadTasks();
+        }
+
         // Write info to div
         newRow.appendChild(newtitle);
         newRow.appendChild(newdetail);
         newRow.appendChild(nDueDate);
+        newRow.appendChild(newpriority);
         newRow.appendChild(nStatusButton);
         newRow.appendChild(neditButton);
         taskList.appendChild(newRow);
