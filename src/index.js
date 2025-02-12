@@ -188,7 +188,9 @@ function reloadTasks(project='All') {
             <div class="tasklabels">Status</div>
             <div class="tasklabels">Edit</div>
         </div>`;
-
+    if (typeof(localStorage.getItem('tasks')) =='undefined') {
+        localStorage.setItem('tasks', JSON.stringify(myTasks));
+    }
     myTasks = JSON.parse(localStorage.getItem('tasks'));
 
     const filterme = document.getElementById('filterList').value;
@@ -310,6 +312,10 @@ function populateEdit(ind) {
 
 function reloadProjects() {
     const projectList = document.getElementById('projectList');
+    if (typeof(localStorage.getItem('projects')) =='undefined') {
+        localStorage.setItem('projects', JSON.stringify(myProjects));
+    }
+    myProjects = JSON.parse(localStorage.getItem('projects'));
 
     projectList.innerHTML = `
         <div class="project">
@@ -470,8 +476,6 @@ function reloadProjectList() {
         })
 
         dropdown.appendChild(p);
-
-
     }
 }
 
@@ -495,6 +499,7 @@ function createProject() {
     myProjects.push(document.getElementById('project_name').value);
     document.getElementById('project_name').value = '';
     document.getElementById('projectModal').style.display = 'none';
+    localStorage.setItem('projects', JSON.stringify(myProjects));
     reloadProjectList();
     reloadProjects();
 }
@@ -504,6 +509,7 @@ function editProject(p_name, p_field) {
         const i = myProjects.indexOf(p_name.innerHTML);
         myProjects[i] = p_field.value;
     }
+    localStorage.setItem('projects', JSON.stringify(myProjects));
     reloadProjectList();
     reloadProjects();
 }
@@ -511,6 +517,7 @@ function editProject(p_name, p_field) {
 function deleteProject(ind) {
     let t = myProjects[ind];
     myProjects = myProjects.filter(item => item !== t)
+    localStorage.setItem('projects', JSON.stringify(myProjects));
     reloadProjectList();
     reloadProjects();
 }
