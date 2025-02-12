@@ -109,11 +109,6 @@ class Task {
         };
         return jsonob;
     }
-
-    replaceTitle(newtitle) {
-        this.title = newtitle;
-    }
-
 }
 
 // Task CRUD functionality
@@ -204,6 +199,7 @@ function reloadTasks(project='All') {
     // else, load the existing json
     for (let i=0; i<myTasks.length; i++) {
         let taskInfo = myTasks[i];
+        console.log(taskInfo);
         const newRow = document.createElement('div');
         newRow.setAttribute('class', 'task');
         const newtitle = document.createElement('p');
@@ -218,6 +214,9 @@ function reloadTasks(project='All') {
         }
         const nStatusButton = document.createElement('input');
         nStatusButton.setAttribute('type', 'checkbox');
+        if (taskInfo.complete === true) {
+            nStatusButton.setAttribute('checked', true);
+        }
         const neditButton = document.createElement('div');
         neditButton.setAttribute('class', 'editbtn');
         const nimage = document.createElement('img');
@@ -242,6 +241,10 @@ function reloadTasks(project='All') {
 
         nDueDate.onclick = function() {
             editDueDate(nDueDate, i);
+        }
+
+        nStatusButton.onclick = function() {
+            editStatus(nStatusButton, i);
         }
 
         // Write info to div
@@ -402,6 +405,16 @@ function editDueDateSubmit(newduedate, ind) {
     console.log(newduedate);
     console.log(newduedate.type);
     myTasks[ind].dateDue = newduedate;
+    localStorage.setItem('tasks', JSON.stringify(myTasks));
+    reloadTasks();
+}
+
+function editStatus(nStatusButton, ind) {
+    if (nStatusButton.checked == true) {
+        myTasks[ind].complete = true;
+    } else {
+        myTasks[ind].complete = false;
+    }
     localStorage.setItem('tasks', JSON.stringify(myTasks));
     reloadTasks();
 }
