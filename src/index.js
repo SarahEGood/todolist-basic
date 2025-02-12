@@ -310,6 +310,7 @@ function reloadProjects() {
 // Reloads projects in filter list
 function reloadProjectList() {
     const dropdown = document.getElementById('filterProject');
+    dropdown.innerHTML = '';
     for (let i=0; i<myProjects.length; i++) {
         const p = document.createElement('option');
         p.innerHTML = myProjects[i];
