@@ -8,6 +8,10 @@ let myTasks = [];
 let activeTask = 0;
 reloadTasks();
 
+// Load Projects
+let myProjects = ['All', 'Inbox'];
+reloadProjectList();
+
 var createModal = document.getElementById('modal-create');
 var createbtn = document.getElementById("create");
 var span = document.getElementsByClassName("close")[0];
@@ -48,6 +52,10 @@ deleteBtn.onclick = function() {
     deleteTask(activeTask);
     editModal.style.display = 'none';
     reloadTasks();
+}
+
+document.getElementById('filterProject').onclick = function() {
+
 }
 
 // Task Objects
@@ -106,9 +114,6 @@ function createTask() {
 
     // Then, reload tasks
     reloadTasks();
-
-    // Also, close modal
-
 }
 
 function editTask() {
@@ -144,7 +149,7 @@ function deleteTask(ind) {
 }
 
 // Display tasks
-function reloadTasks() {
+function reloadTasks(project='All') {
     // Clear task list div
     const taskList = document.getElementById('tasks');
     taskList.innerHTML = `
@@ -157,6 +162,17 @@ function reloadTasks() {
         </div>`;
 
     myTasks = JSON.parse(localStorage.getItem('tasks'));
+
+    if (project!=='All') {
+        let newTasks = [];
+        for (let i = 0; i<myTasks.length; i++) {
+            let t = myTasks[i].project;
+            if (t === project) {
+                newTasks.push(myTasks[i]);
+            }
+        }
+        myTasks = newTasks;
+    }
 
     // If no json for tasks, create one
     // else, load the existing json
@@ -208,4 +224,20 @@ function populateEdit(ind) {
     document.getElementById('e-project').value = task.project;
 
     activeTask = ind;
+}
+
+function reloadProjectList() {
+    const dropdown = document.getElementById('filterProject');
+    for (let i=0; i<myProjects.length; i++) {
+        const p = document.createElement('option');
+        p.innerHTML = myProjects[i];
+
+        p.addEventListener('click', function() {
+            reloadTasks(myProjects[i]);
+        })
+
+        dropdown.appendChild(p);
+
+
+    }
 }

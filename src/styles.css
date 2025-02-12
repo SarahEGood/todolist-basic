@@ -88,3 +88,11 @@
     margin-left: 10px;
     padding-right: 5px;
 }
+
+select {
+    background-color: #4562c0;
+    border: none;
+    color: white;
+    padding: 16px;
+    font-size: 18px;
+}
