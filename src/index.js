@@ -211,7 +211,11 @@ function reloadTasks(project='All') {
         const newdetail = document.createElement('p');
         newdetail.innerHTML = taskInfo.detail;
         const nDueDate = document.createElement('p');
-        nDueDate.innerHTML = taskInfo.dateDue;
+        if (taskInfo.dateDue) {
+            nDueDate.innerHTML = taskInfo.dateDue;
+        } else {
+            nDueDate.innerHTML = "None";
+        }
         const nStatusButton = document.createElement('input');
         nStatusButton.setAttribute('type', 'checkbox');
         const neditButton = document.createElement('div');
@@ -230,6 +234,10 @@ function reloadTasks(project='All') {
         // Click on task to edit inline
         newtitle.onclick = function() {
             editTaskTitle(newtitle, i);
+        }
+
+        nDueDate.onclick = function() {
+            editDueDate(nDueDate, i)
         }
 
         // Write info to div
@@ -335,6 +343,35 @@ function editTaskTitle (newtitle, i) {
 
 function editTaskTitleSubmit(newtitle, ind) {
     myTasks[ind].title = newtitle;
+    localStorage.setItem('tasks', JSON.stringify(myTasks));
+    reloadTasks();
+}
+
+function editDueDate(nDueDate, i) {
+    const editDueDate = document.createElement('input');
+    editDueDate.setAttribute('type','date');
+    editDueDate.setAttribute('for','edit_date');
+    editDueDate.setAttribute('id','edit_date');
+    editDueDate.value = myTasks[i].dateDue;
+    nDueDate.replaceWith(editDueDate);
+
+    editDueDate.onkeyup = function(e) {
+        if (e.key === 'Enter') {
+            editDueDateSubmit(editDueDate.value, i);
+        }
+    }
+
+    window.onclick = function (e) {
+        if (e.target.contains(editDueDate) && e.target !== editDueDate) {
+            editDueDateSubmit(editDueDate.value, i);
+        }
+    }
+}
+
+function editDueDateSubmit(newduedate, ind) {
+    console.log(newduedate);
+    console.log(newduedate.type);
+    myTasks[ind].dateDue = newduedate;
     localStorage.setItem('tasks', JSON.stringify(myTasks));
     reloadTasks();
 }
