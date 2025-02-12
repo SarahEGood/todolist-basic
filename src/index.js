@@ -16,13 +16,14 @@ var createModal = document.getElementById('modal-create');
 var createbtn = document.getElementById("create");
 var span = document.getElementsByClassName("close")[0];
 var submitcreate = document.getElementById('submitCreate');
+var toggleBtn = document.getElementById('togglebtn');
 
 var editModal = document.getElementById('modal-edit');
 var submitedit = document.getElementById('submitEdit');
 var editClose = document.getElementById("close_edit");
 var deleteBtn = document.getElementById('deleteBtn');
 
-document.getElementById('c-dateDue').value = new Date().toISOString().split('T')[0];;
+document.getElementById('c-dateDue').value = new Date().toISOString().split('T')[0];
 
 createbtn.onclick = function() {
     createModal.style.display = 'block';
@@ -54,8 +55,14 @@ deleteBtn.onclick = function() {
     reloadTasks();
 }
 
-document.getElementById('filterProject').onclick = function() {
-
+toggleBtn.onclick = function() {
+    if (toggleBtn.innerHTML === 'Projects') {
+        taskToProject();
+        toggleBtn.innerHTML = 'Tasks';
+    } else {
+        projectToTask();
+        toggleBtn.innerHTML = 'Projects';
+    }
 }
 
 // Task Objects
@@ -226,6 +233,7 @@ function populateEdit(ind) {
     activeTask = ind;
 }
 
+// Reloads projects in filter list
 function reloadProjectList() {
     const dropdown = document.getElementById('filterProject');
     for (let i=0; i<myProjects.length; i++) {
@@ -240,4 +248,20 @@ function reloadProjectList() {
 
 
     }
+}
+
+
+// Functions to switch views between tasks and projects (and vica versa)
+function taskToProject() {
+    const t = document.getElementById('tasks');
+    const p = document.getElementById('projectList');
+    t.style.display = 'none';
+    p.style.display = 'block';
+}
+
+function projectToTask() {
+    const t = document.getElementById('tasks');
+    const p = document.getElementById('projectList');
+    t.style.display = 'block';
+    p.style.display = 'none';
 }
