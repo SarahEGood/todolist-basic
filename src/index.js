@@ -188,7 +188,7 @@ function reloadTasks(project='All') {
             <div class="tasklabels">Status</div>
             <div class="tasklabels">Edit</div>
         </div>`;
-    if (typeof(localStorage.getItem('tasks')) =='undefined') {
+    if (typeof(localStorage.getItem('tasks')) === null) {
         localStorage.setItem('tasks', JSON.stringify(myTasks));
     }
     myTasks = JSON.parse(localStorage.getItem('tasks'));
