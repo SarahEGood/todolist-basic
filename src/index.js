@@ -236,8 +236,12 @@ function reloadTasks(project='All') {
             editTaskTitle(newtitle, i);
         }
 
+        newdetail.onclick = function() {
+            editTaskDescription(newdetail, i);
+        }
+
         nDueDate.onclick = function() {
-            editDueDate(nDueDate, i)
+            editDueDate(nDueDate, i);
         }
 
         // Write info to div
@@ -345,6 +349,32 @@ function editTaskTitleSubmit(newtitle, ind) {
     myTasks[ind].title = newtitle;
     localStorage.setItem('tasks', JSON.stringify(myTasks));
     reloadTasks();
+}
+
+function editTaskDescription(newdesc, i) {
+    const editD = document.createElement('input');
+    editD.setAttribute('for', 'edit-desc');
+    editD.setAttribute('id', 'edit-desc');
+    editD.value = myTasks[i].detail;
+    newdesc.replaceWith(editD);
+
+    editD.onkeyup = function(e) {
+        if (e.key === 'Enter') {
+            editTaskDescriptionSubmit(editD.value, i);
+        }
+    }
+
+    window.onclick = function (e) {
+        if (e.target.contains(editD) && e.target !== editD) {
+            editTaskDescriptionSubmit(editD.value, i);
+        }        
+    }
+}
+
+function editTaskDescriptionSubmit(newDesc, ind) {
+    myTasks[ind].detail = newDesc;
+    localStorage.setItem('tasks', JSON.stringify(myTasks));
+    reloadTasks();   
 }
 
 function editDueDate(nDueDate, i) {
