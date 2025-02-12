@@ -3,6 +3,8 @@ import editImage from "./pencil.svg";
 import delImage from "./delete.svg";
 
 document.querySelector('footer').innerHTML += new Date().getFullYear();
+var currDate = new Date();
+var today = stringifyDate(currDate);
 
 // Load existing tasks
 let myTasks = [];
@@ -25,6 +27,7 @@ var editModal = document.getElementById('modal-edit');
 var submitedit = document.getElementById('submitEdit');
 var editClose = document.getElementById("close_edit");
 var deleteBtn = document.getElementById('deleteBtn');
+var filterTasks = document.getElementById('filterList');
 
 document.getElementById('c-dateDue').value = new Date().toISOString().split('T')[0];
 
@@ -78,6 +81,10 @@ toggleBtn.onclick = function() {
         projectToTask();
         toggleBtn.innerHTML = 'Projects';
     }
+}
+
+filterTasks.onclick = function() {
+    reloadTasks();
 }
 
 // Task Objects
@@ -184,8 +191,39 @@ function reloadTasks(project='All') {
 
     myTasks = JSON.parse(localStorage.getItem('tasks'));
 
-    if (project!=='All') {
+    const filterme = document.getElementById('filterList').value;
+    console.log(filterme);
+    if (filterme !== 'all' || filterme !== 'complete') {
         let newTasks = [];
+
+        let limit = Date.parse(today);
+        if (filterme === 'tomorrow') {
+            limit = stringifyDate(addDays(currDate, 1));
+        } else if (filterme === 'sevendays') {
+            limit = stringifyDate(addDays(currDate, 7));
+        }
+
+        for (let i = 0; i<myTasks.length; i++) {
+            let duedate = Date.parse(myTasks[i].dateDue);
+            if (duedate <= limit) {
+                newTasks.push(myTasks[i]);
+            }
+        }
+        myTasks = newTasks;
+    }
+
+    let newTasks = [];
+
+    for (let i = 0; i<myTasks.length; i++) {
+        console.log(myTasks[i]);
+        if ((myTasks[i].complete === true && filterme === 'complete') ||
+                (myTasks[i].complete === false && filterme !== 'complete')) {
+            newTasks.push(myTasks[i]);
+        }
+    }
+    myTasks = newTasks;
+
+    if (project!=='All') {
         for (let i = 0; i<myTasks.length; i++) {
             let t = myTasks[i].project;
             if (t === project) {
@@ -475,4 +513,17 @@ function deleteProject(ind) {
     myProjects = myProjects.filter(item => item !== t)
     reloadProjectList();
     reloadProjects();
+}
+
+function stringifyDate(d) {
+    const dd = String(d.getDate()).padStart(2, '0');
+    const mm = String(d.getMonth() + 1).padStart(2, '0'); //January is 0!
+    const yyyy = d.getFullYear();
+    return yyyy + '-' + mm + '-' + dd;
+}
+
+function addDays(d, days) {
+    const newDate = new Date(d);
+    newDate.setDate(d.getDate() + days);
+    return newDate;
 }
