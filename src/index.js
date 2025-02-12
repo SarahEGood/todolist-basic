@@ -15,7 +15,6 @@ reloadProjects();
 reloadProjectList();
 
 // Load default click events
-
 var createModal = document.getElementById('modal-create');
 var createbtn = document.getElementById("create");
 var span = document.getElementById('close-create');
@@ -109,6 +108,10 @@ class Task {
             modDate: this.modDate   
         };
         return jsonob;
+    }
+
+    replaceTitle(newtitle) {
+        this.title = newtitle;
     }
 
 }
@@ -224,6 +227,11 @@ function reloadTasks(project='All') {
             console.log(activeTask);
         }
 
+        // Click on task to edit inline
+        newtitle.onclick = function() {
+            editTaskTitle(newtitle, i);
+        }
+
         // Write info to div
         newRow.appendChild(newtitle);
         newRow.appendChild(newdetail);
@@ -232,8 +240,6 @@ function reloadTasks(project='All') {
         newRow.appendChild(neditButton);
         taskList.appendChild(newRow);
     }
-
-    // iterate through json of tasks to display them on modal
 }
 
 // Populate Edit fields with corresponding task
@@ -305,6 +311,32 @@ function reloadProjects() {
 
         projectList.appendChild(p);
     }
+}
+
+function editTaskTitle (newtitle, i) {
+    const editTitle = document.createElement('input');
+    editTitle.setAttribute('for', 'edit_task');
+    editTitle.setAttribute('id', 'edit_task');
+    editTitle.value = myTasks[i].title;
+    newtitle.replaceWith(editTitle);
+
+    editTitle.onkeyup = function(e) {
+        if (e.key === 'Enter') {
+            editTaskTitleSubmit(editTitle.value, i);
+        }
+    }
+
+    window.onclick = function (e) {
+        if (e.target.contains(editTitle) && e.target !== editTitle) {
+            editTaskTitleSubmit(editTitle.value, i);
+        }
+    }
+}
+
+function editTaskTitleSubmit(newtitle, ind) {
+    myTasks[ind].title = newtitle;
+    localStorage.setItem('tasks', JSON.stringify(myTasks));
+    reloadTasks();
 }
 
 // Reloads projects in filter list
