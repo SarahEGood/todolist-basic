@@ -4,6 +4,10 @@
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
+body {
+    background-color: #6197a1;
+}
+
 .wrapper {
     display: flex;
     align-items: center;
@@ -33,9 +37,16 @@
 }
 
 .tasks-wrapper {
-    padding: 10px;
+    padding: 25px;
+    border-radius: 16px;
     background: lightblue;
     width: clamp(500px, auto, 800px);
+}
+
+.tasks-ops {
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
 }
 
 .task{
@@ -111,4 +122,33 @@ select {
     grid-template-columns: 1fr 0.5fr 0.5fr;
     padding: 10px;
     width: clamp(500px, auto, 800px);
+}
+
+.modalbtn, #togglebtn, #create, #createproject, #submitCreate, select {
+    border-radius: 8px;
+}
+
+#deleteBtn {
+    background-color: darkred;
+}
+
+.nav {
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+h1 {
+    font-size: 64px;
+    color: white;
+}
+
+.formatheader {
+    font-weight: bolder;
+}
+
+footer {
+    color: white;
+    padding: 5px;
 }

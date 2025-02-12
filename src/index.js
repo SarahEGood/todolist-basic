@@ -181,7 +181,7 @@ function reloadTasks(project='All') {
     // Clear task list div
     const taskList = document.getElementById('tasks');
     taskList.innerHTML = `
-        <div class="task">
+        <div class="task formatheader">
             <div class="tasklabels">Task</div>
             <div class="tasklabels">Description</div>
             <div class="tasklabels">Due Date</div>
@@ -350,7 +350,7 @@ function reloadProjects() {
     myProjects = JSON.parse(localStorage.getItem('projects'));
 
     projectList.innerHTML = `
-        <div class="project">
+        <div class="project formatheader">
             <div class="tasklabels">Project</div>
             <div class="tasklabels">Edit</div>
             <div class="tasklabels">Delete</div>
