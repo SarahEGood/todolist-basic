@@ -14,9 +14,11 @@ let myProjects = ['All', 'Inbox'];
 reloadProjects();
 reloadProjectList();
 
+// Load default click events
+
 var createModal = document.getElementById('modal-create');
 var createbtn = document.getElementById("create");
-var span = document.getElementsByClassName("close")[0];
+var span = document.getElementById('close-create');
 var submitcreate = document.getElementById('submitCreate');
 var toggleBtn = document.getElementById('togglebtn');
 
@@ -31,6 +33,14 @@ createbtn.onclick = function() {
     createModal.style.display = 'block';
     document.getElementById('createForm').reset();
 }
+
+document.getElementById('createproject').onclick = function() {
+    document.getElementById('projectModal').style.display = 'block';
+}
+
+document.getElementById('submitProject').onclick = function() {
+    createProject();
+} 
 
 submitcreate.onclick = function() {
     createTask();
@@ -49,6 +59,10 @@ span.onclick = function() {
 
 editClose.onclick = function() {
     editModal.style.display = 'none';
+}
+
+document.getElementById('close-p').onclick = function() {
+    document.getElementById('projectModal').style.display = 'none';
 }
 
 deleteBtn.onclick = function() {
@@ -263,6 +277,25 @@ function reloadProjects() {
         pimage.src = delImage;
         deletep.appendChild(pimage);
 
+        editp.onclick = function() {
+            const p_field = document.createElement('input');
+            p_field.setAttribute('for', 'new_title');
+            p_field.setAttribute('id', 'new_title');
+            p_field.value = myProjects[i];
+            p_name.replaceWith(p_field);
+
+            editp.onclick = function() {
+                editProject(p_name, p_field);
+            }
+
+            p_field.onkeyup = function (e) {
+                if (e.key === 'Enter' || e.keyCode === 13) {
+                    editProject(p_name, p_field);
+                }
+            }
+
+        }
+
         p.appendChild(p_name);
         p.appendChild(editp);
         p.appendChild(deletep);
@@ -302,4 +335,19 @@ function projectToTask() {
     const p = document.getElementById('projectList');
     t.style.display = 'block';
     p.style.display = 'none';
+}
+
+function createProject() {
+    myProjects.push(document.getElementById('project_name').value);
+    document.getElementById('project_name').value = '';
+    document.getElementById('projectModal').style.display = 'none';
+    reloadProjectList();
+    reloadProjects();
+}
+
+function editProject(p_name, p_field) {
+    const i = myProjects.indexOf(p_name.innerHTML);
+    myProjects[i] = p_field.value;
+    reloadProjectList();
+    reloadProjects();
 }

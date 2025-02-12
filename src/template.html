@@ -15,6 +15,7 @@
         <div class="tasks-wrapper">
             <div class="tasks-ops">
                 <button id="create">Create Task</button>
+                <button id="createproject">Create Project</button>
                 <button id="togglebtn">Projects</button>
                 <span class="top-labels">Filter by Project: </span>
                 <select data-placeholder="Projects" id="filterProject">
@@ -25,9 +26,17 @@
             <div id="projectList"></div>
         </div>
         <footer>By Sarah Good, </footer>
+        <div class="modal" id="projectModal">
+            <div class="modal-content">
+                <span class="close" id="close-p">&times;</span>
+                <label for="project_name">Project Name</label>
+                <input type="text" name="project_name" id="project_name">
+                <button id="submitProject">Submit</button>
+            </div>
+        </div>
         <div class='modal' id="modal-create">
             <div class="modal-content">
-                <span class="close">&times;</span>
+                <span class="close" id="close-create">&times;</span>
                 <form id="createForm">
                     <label for="c-title">Task Name:</label>
                     <input type="text" name="title" id="c-title">
