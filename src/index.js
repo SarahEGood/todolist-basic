@@ -200,13 +200,15 @@ function reloadTasks(project='All') {
 
         let limit = Date.parse(today);
         if (filterme === 'tomorrow') {
-            limit = stringifyDate(addDays(currDate, 1));
+            limit = addDays(currDate, 1);
         } else if (filterme === 'sevendays') {
-            limit = stringifyDate(addDays(currDate, 7));
+            limit = addDays(currDate, 7);
         }
 
         for (let i = 0; i<myTasks.length; i++) {
             let duedate = Date.parse(myTasks[i].dateDue);
+            console.log(duedate);
+            console.log(limit);
             if (duedate <= limit) {
                 newTasks.push(myTasks[i]);
             }
