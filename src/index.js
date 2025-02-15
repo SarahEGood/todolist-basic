@@ -202,19 +202,6 @@ export function reloadTasks(project='All') {
 }
 
 
-// Populate Edit fields with corresponding task
-function populateEdit(ind) {
-    const task = myTasks[ind];
-    
-    document.getElementById('e-title').value = task.title;
-    document.getElementById('e-detail').value = task.detail;
-    document.getElementById('e-dateDue').value = task.dateDue;
-    document.getElementById('e-priority').value = task.priority;
-    document.getElementById('e-project').value = task.project;
-
-    activeTask = ind;
-}
-
 function reloadProjects() {
     const projectList = document.getElementById('projectList');
     if (typeof(localStorage.getItem('projects')) =='undefined') {

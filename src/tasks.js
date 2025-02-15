@@ -247,3 +247,16 @@ function editStatus(myTasks, nStatusButton, ind) {
     localStorage.setItem('tasks', JSON.stringify(myTasks));
     index.reloadTasks(myTasks);
 }
+
+// Populate Edit fields with corresponding task
+function populateEdit(ind) {
+    const task = myTasks[ind];
+    
+    document.getElementById('e-title').value = task.title;
+    document.getElementById('e-detail').value = task.detail;
+    document.getElementById('e-dateDue').value = task.dateDue;
+    document.getElementById('e-priority').value = task.priority;
+    document.getElementById('e-project').value = task.project;
+
+    activeTask = ind;
+}
